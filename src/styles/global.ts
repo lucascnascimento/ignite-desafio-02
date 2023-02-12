@@ -31,6 +31,7 @@ export const GlobalStyles = createGlobalStyle`
 
   h1 {
     font-size: 3rem;
+    line-height: 130%;
   }
 
   h2 {
