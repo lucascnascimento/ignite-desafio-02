@@ -11,6 +11,8 @@ export const BannerContainer = styled.div`
   align-items: center;
   gap: 3.5rem;
   padding: 5.75rem;
+  width: 100vw;
+  margin-left: calc((100vw - 1120px) / -2);
 `;
 
 export const TitleSection = styled.div`
