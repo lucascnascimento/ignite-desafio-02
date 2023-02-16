@@ -1,17 +1,11 @@
-import {
-  MapPinLine,
-  CurrencyDollar,
-  CreditCard,
-  Bank,
-  Money,
-} from "phosphor-react";
+import { CreditCard, Bank, Money } from "phosphor-react";
 import { Counter } from "../../components/Counter";
 import { InformationBox } from "./components/InformationCard";
-import { InputGrid } from "./styles";
+import { InputBase, InputGrid, CheckoutContainer } from "./styles";
 
 export const Checkout = () => {
   return (
-    <div>
+    <CheckoutContainer>
       <section>
         <h1>Complete seu pedido</h1>
         <InformationBox
@@ -21,21 +15,42 @@ export const Checkout = () => {
           iconColor="base-card"
         >
           <InputGrid>
-            <input type={"text"} placeholder="CEP" className="zipCode" />
-            <input type={"text"} placeholder="Rua" className="street" />
-            <input type={"text"} placeholder="Número" className="number" />
-            <input
+            <InputBase type={"text"} placeholder="CEP" className="zipCode" />
+            <InputBase
+              type={"text"}
+              placeholder="Rua"
+              className="street"
+              disabled
+            />
+            <InputBase
+              type={"text"}
+              placeholder="Número"
+              className="number"
+              disabled
+            />
+            <InputBase
               type={"text"}
               placeholder="Complemento"
               className="complement"
             />
-            <input
+            <InputBase
               type={"text"}
               placeholder="Bairro"
               className="neighborhood"
+              disabled
             />
-            <input type={"text"} placeholder="Cidade" className="city" />
-            <input type={"text"} placeholder="UF" className="state" />
+            <InputBase
+              type={"text"}
+              placeholder="Cidade"
+              className="city"
+              disabled
+            />
+            <InputBase
+              type={"text"}
+              placeholder="UF"
+              className="state"
+              disabled
+            />
           </InputGrid>
         </InformationBox>
 
@@ -94,6 +109,6 @@ export const Checkout = () => {
           </div>
         </div>
       </section>
-    </div>
+    </CheckoutContainer>
   );
 };

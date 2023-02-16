@@ -1,6 +1,16 @@
 import styled from "styled-components";
 
-export const AdressBox = styled.div``;
+export const CheckoutContainer = styled.div`
+  display: flex;
+  gap: 2rem;
+  padding-top: 2.5rem;
+
+  & h1 {
+    font-size: 1.125rem;
+    padding-bottom: 1rem;
+    color: ${(props) => props.theme["base-subtitle"]};
+  }
+`;
 
 export const InputGrid = styled.div`
   display: grid;
@@ -35,5 +45,42 @@ export const InputGrid = styled.div`
   .state {
     grid-column: 3 / 4;
     grid-row: 4;
+  }
+`;
+
+export const InputBase = styled.input`
+  padding: 0.75rem;
+  color: ${(props) => props.theme["base-text"]};
+  background-color: ${(props) => props.theme["base-input"]};
+  border: 1px solid ${(props) => props.theme["base-button"]};
+  border-radius: 4px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 0.875rem;
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: ${(props) => props.theme["base-button"]};
+  }
+
+  :focus {
+    outline: 0;
+    box-shadow: 0 0 0 2px ${(props) => props.theme["yellow-dark"]};
+  }
+
+  ::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: ${(props) => props.theme["base-label"]};
+    opacity: 1; /* Firefox */
+  }
+
+  :-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: ${(props) => props.theme["base-label"]};
+  }
+
+  ::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: ${(props) => props.theme["base-label"]};
   }
 `;
