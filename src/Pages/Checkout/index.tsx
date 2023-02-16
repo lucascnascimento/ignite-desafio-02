@@ -7,6 +7,7 @@ import {
 } from "phosphor-react";
 import { Counter } from "../../components/Counter";
 import { InformationBox } from "./components/InformationCard";
+import { InputGrid } from "./styles";
 
 export const Checkout = () => {
   return (
@@ -19,15 +20,23 @@ export const Checkout = () => {
           icon="mapPinLine"
           iconColor="base-card"
         >
-          <div>
-            <input type={"text"} placeholder="CEP" />
-            <input type={"text"} placeholder="Rua" />
-            <input type={"text"} placeholder="Número" />
-            <input type={"text"} placeholder="Complemento" />
-            <input type={"text"} placeholder="Bairro" />
-            <input type={"text"} placeholder="Cidade" />
-            <input type={"text"} placeholder="UF" />
-          </div>
+          <InputGrid>
+            <input type={"text"} placeholder="CEP" className="zipCode" />
+            <input type={"text"} placeholder="Rua" className="street" />
+            <input type={"text"} placeholder="Número" className="number" />
+            <input
+              type={"text"}
+              placeholder="Complemento"
+              className="complement"
+            />
+            <input
+              type={"text"}
+              placeholder="Bairro"
+              className="neighborhood"
+            />
+            <input type={"text"} placeholder="Cidade" className="city" />
+            <input type={"text"} placeholder="UF" className="state" />
+          </InputGrid>
         </InformationBox>
 
         <InformationBox
