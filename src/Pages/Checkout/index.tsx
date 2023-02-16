@@ -6,21 +6,19 @@ import {
   Money,
 } from "phosphor-react";
 import { Counter } from "../../components/Counter";
+import { InformationBox } from "./components/InformationCard";
 
 export const Checkout = () => {
   return (
     <div>
       <section>
         <h1>Complete seu pedido</h1>
-        <div>
-          <div>
-            <MapPinLine />
-            <div>
-              <h2>Endereço de Entrega</h2>
-              <h3>Informe o endereço onde deseja receber seu pedido</h3>
-            </div>
-          </div>
-
+        <InformationBox
+          title="Endereço de Entrega"
+          subtitle="Informe o endereço onde deseja receber seu pedido"
+          icon="mapPinLine"
+          iconColor="base-card"
+        >
           <div>
             <input type={"text"} placeholder="CEP" />
             <input type={"text"} placeholder="Rua" />
@@ -30,18 +28,14 @@ export const Checkout = () => {
             <input type={"text"} placeholder="Cidade" />
             <input type={"text"} placeholder="UF" />
           </div>
-        </div>
+        </InformationBox>
 
-        <div>
-          <div>
-            <CurrencyDollar />
-            <div>
-              <h2>Pagamento</h2>
-              <h3>
-                O pagamento é feito na entrega. Escolha a forma que deseja pagar
-              </h3>
-            </div>
-          </div>
+        <InformationBox
+          title="Pagamento"
+          subtitle="O pagamento é feito na entrega. Escolha a forma que deseja pagar"
+          icon="currencyDollar"
+          iconColor="base-card"
+        >
           <div>
             <button>
               <CreditCard />
@@ -56,7 +50,7 @@ export const Checkout = () => {
               DINHEIRO
             </button>
           </div>
-        </div>
+        </InformationBox>
       </section>
 
       <section>

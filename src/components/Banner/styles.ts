@@ -28,9 +28,6 @@ export const TitleSection = styled.div`
     font-size: 1.25rem;
     ${(props) => props.theme["base-subtitle"]};
   }
-
-  & > div {
-  }
 `;
 
 export const GridItems = styled.div`
