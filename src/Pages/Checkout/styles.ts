@@ -84,3 +84,37 @@ export const InputBase = styled.input`
     color: ${(props) => props.theme["base-label"]};
   }
 `;
+
+export const PaymentSectionContainer = styled.div`
+  display: flex;
+  gap: 0.75rem;
+`;
+
+type PaymentSelectButtonProps = {
+  active: boolean;
+};
+
+export const PaymentSelectButton = styled.button<PaymentSelectButtonProps>`
+  display: flex;
+  color: ${(props) => props.theme["base-text"]};
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  padding: 1rem;
+  justify-content: center;
+  align-items: center;
+  background-color: ${(props) => props.theme["base-button"]};
+  gap: 0.75rem;
+  border-radius: 6px;
+  width: 100%;
+  cursor: pointer;
+  border: solid 1px
+    ${(props) => (props.active ? props.theme.purple : "transparent")};
+
+  svg {
+    color: ${(props) => props.theme.purple};
+  }
+
+  &:hover {
+    background-color: ${(props) => props.theme["base-hover"]};
+  }
+`;

@@ -1,7 +1,13 @@
 import { CreditCard, Bank, Money } from "phosphor-react";
 import { Counter } from "../../components/Counter";
 import { InformationBox } from "./components/InformationCard";
-import { InputBase, InputGrid, CheckoutContainer } from "./styles";
+import {
+  InputBase,
+  InputGrid,
+  CheckoutContainer,
+  PaymentSelectButton,
+  PaymentSectionContainer,
+} from "./styles";
 
 export const Checkout = () => {
   return (
@@ -60,20 +66,20 @@ export const Checkout = () => {
           icon="currencyDollar"
           iconColor="base-card"
         >
-          <div>
-            <button>
-              <CreditCard />
+          <PaymentSectionContainer>
+            <PaymentSelectButton active={false}>
+              <CreditCard size={16} />
               CARTÃO DE CRÉDITO
-            </button>
-            <button>
-              <Bank />
+            </PaymentSelectButton>
+            <PaymentSelectButton active={false}>
+              <Bank size={16} />
               CARTÃO DE DÉBITO
-            </button>
-            <button>
-              <Money />
+            </PaymentSelectButton>
+            <PaymentSelectButton active={true}>
+              <Money size={16} />
               DINHEIRO
-            </button>
-          </div>
+            </PaymentSelectButton>
+          </PaymentSectionContainer>
         </InformationBox>
       </section>
 
