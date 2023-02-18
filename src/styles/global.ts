@@ -22,6 +22,7 @@ export const GlobalStyles = createGlobalStyle`
     --size-48: 3rem;
     --size-54: 3.375rem;
     --size-56: 3.5rem;
+    --size-64: 4rem;
     --size-66: 4.125rem;
     --size-92: 5.75rem;
     --size-120: 7.5rem;
@@ -35,6 +36,7 @@ export const GlobalStyles = createGlobalStyle`
     --border-radius-4: 4px;
     --border-radius-6: 6px;
     --border-radius-36: 36px;
+    --border-radius-44: 44px;
     --border-radius-infinite: 99999999px;
     --border-radius-50-percent: 50%;
 

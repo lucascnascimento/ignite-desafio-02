@@ -1,4 +1,4 @@
-import { CreditCard, Bank, Money } from "phosphor-react";
+import { CreditCard, Bank, Money, Trash } from "phosphor-react";
 import { Counter } from "../../components/Counter";
 import { InformationBox } from "./components/InformationCard";
 import {
@@ -7,12 +7,22 @@ import {
   CheckoutContainer,
   PaymentSelectButton,
   PaymentSectionContainer,
+  SectionContainer,
+  CartContainer,
+  CartItem,
+  Details,
+  DeleteButton,
+  CartItemsList,
+  PriceSection,
+  ConfirmationButton,
 } from "./styles";
+
+import americano from "../../assets/images/products/americano.svg";
 
 export const Checkout = () => {
   return (
     <CheckoutContainer>
-      <section>
+      <SectionContainer>
         <h1>Complete seu pedido</h1>
         <InformationBox
           title="Endereço de Entrega"
@@ -28,12 +38,7 @@ export const Checkout = () => {
               className="street"
               disabled
             />
-            <InputBase
-              type={"text"}
-              placeholder="Número"
-              className="number"
-              disabled
-            />
+            <InputBase type={"text"} placeholder="Número" className="number" />
             <InputBase
               type={"text"}
               placeholder="Complemento"
@@ -81,40 +86,67 @@ export const Checkout = () => {
             </PaymentSelectButton>
           </PaymentSectionContainer>
         </InformationBox>
-      </section>
+      </SectionContainer>
 
-      <section>
+      <SectionContainer>
         <h1>Cafés selecionados</h1>
-        <div>
-          <div>
-            <img />
-            <div>
-              <span>Expresso Tradicional</span>
-              <div>
-                <Counter onChangeValue={() => {}} />
-                <button>remover</button>
-              </div>
-              <span>R$9,90</span>
-            </div>
-          </div>
 
-          <div>
+        <CartContainer>
+          <CartItemsList>
+            <CartItem>
+              <img src={americano} />
+              <Details>
+                <div>
+                  <span>Expresso Tradicional</span>
+                  <div>
+                    <Counter onChangeValue={() => {}} />
+                    <DeleteButton>
+                      <Trash size={16} />
+                      REMOVER
+                    </DeleteButton>
+                  </div>
+                </div>
+                <span>R$9,90</span>
+              </Details>
+            </CartItem>
+
+            <CartItem>
+              <img src={americano} />
+              <Details>
+                <div>
+                  <span>Expresso Tradicional</span>
+                  <div>
+                    <Counter onChangeValue={() => {}} />
+                    <DeleteButton>
+                      <Trash size={16} />
+                      REMOVER
+                    </DeleteButton>
+                  </div>
+                </div>
+                <span>R$9,90</span>
+              </Details>
+            </CartItem>
+          </CartItemsList>
+
+          <PriceSection>
             <div>
-              <span>Total de itens</span>
-              <span>R$ 29,70</span>
+              <div>
+                <span>Total de itens</span>
+                <span>R$ 29,70</span>
+              </div>
+              <div>
+                <span>Entrega</span>
+                <span>R$ 29,70</span>
+              </div>
+              <div>
+                <span>Total</span>
+                <span>R$ 29,70</span>
+              </div>
             </div>
-            <div>
-              <span>Entrega</span>
-              <span>R$ 29,70</span>
-            </div>
-            <div>
-              <span>Total</span>
-              <span>R$ 29,70</span>
-            </div>
-            <button>CONFIRMAR PEDIDO</button>
-          </div>
-        </div>
-      </section>
+            <ConfirmationButton>CONFIRMAR PEDIDO</ConfirmationButton>
+          </PriceSection>
+        </CartContainer>
+      </SectionContainer>
     </CheckoutContainer>
   );
 };
