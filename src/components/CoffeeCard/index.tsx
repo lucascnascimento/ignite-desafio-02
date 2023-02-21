@@ -1,29 +1,44 @@
 import { Actions, CardContainer, TagContainer, PriceTag } from "./styles";
 import { ShoppingCart } from "phosphor-react";
 import { Counter } from "../Counter";
-import americano from "../../assets/images/products/americano.svg";
+import { Product } from "../../@types/types";
 
-export const CoffeeCard = () => {
+import { formatMoney } from "../../utils";
+
+type CoffeeCardProps = {
+  product: Product;
+};
+
+export const CoffeeCard = ({ product }: CoffeeCardProps) => {
+  const { description, imgSrc, isAvailable, name, tags, valueCents } = product;
+
   const handleCounterValueChange = (value: number) => {
     console.log(value);
   };
 
   return (
     <CardContainer>
-      <img src={americano} />
+      <img src={imgSrc} />
 
       <TagContainer>
-        <span>TRADICIONAL</span>
-        <span>GELADO</span>
+        {tags.map((tag) => (
+          <span key={tag}>{tag}</span>
+        ))}
       </TagContainer>
 
-      <h3>Expresso Tradicional</h3>
-      <p>O tradicional café feito com água quente e grãos moídos</p>
+      <h3>{name}</h3>
+      <p>{description}</p>
 
       <div>
         <PriceTag>
-          <span>R$ </span>
-          <span>9,90</span>
+          {isAvailable ? (
+            <>
+              <span>R$ </span>
+              <span>{formatMoney(valueCents)}</span>
+            </>
+          ) : (
+            <span className="unavailable">Indisponível</span>
+          )}
         </PriceTag>
         <Actions>
           <Counter onChangeValue={handleCounterValueChange} />

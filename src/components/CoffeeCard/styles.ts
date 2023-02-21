@@ -48,6 +48,7 @@ export const TagContainer = styled.div`
     padding: 4px 8px;
     border-radius: 999999px;
     margin: 8px 0px;
+    text-transform: uppercase;
   }
 `;
 
@@ -59,6 +60,10 @@ export const PriceTag = styled.div`
   span:last-child {
     font-size: 1.5rem;
     font-weight: bold;
+  }
+
+  span.unavailable {
+    font-size: 0.875rem;
   }
 `;
 

@@ -1,14 +1,27 @@
 import { CoffeeCard } from "../CoffeeCard";
 
 import { ProductListContainer, ProductsGrid } from "./styles";
+import { Product } from "../../@types/types";
 
-export const ProductsList = () => {
+type ProductsListProps = {
+  products: Product[];
+  isLoading: boolean;
+  isError: boolean;
+};
+
+export const ProductsList = ({
+  isError,
+  isLoading,
+  products,
+}: ProductsListProps) => {
+  if (isLoading) return <div>isLoading</div>;
+
   return (
     <ProductListContainer>
       <h2>Nossos cafés</h2>
       <ProductsGrid>
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value) => (
-          <CoffeeCard key={value} />
+        {products.map((product) => (
+          <CoffeeCard key={product.id} product={product} />
         ))}
       </ProductsGrid>
     </ProductListContainer>

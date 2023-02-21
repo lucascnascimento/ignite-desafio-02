@@ -76,7 +76,6 @@ const PRODUCTS_LIST = [
     isAvailable: true,
     imgSrc: "src/assets/images/products/macchiato.svg",
   },
-  ,
   {
     id: 9,
     name: "Mocaccino",
@@ -84,7 +83,7 @@ const PRODUCTS_LIST = [
     tags: ["Tradicional", "Com Leite"],
     valueCents: 990,
     isAvailable: true,
-    imgSrc: "src/assets/images/products/mochaccino.svg",
+    imgSrc: "src/assets/images/products/mocaccino.svg",
   },
   {
     id: 10,
@@ -134,13 +133,16 @@ const PRODUCTS_LIST = [
   },
 ];
 
-const getProducts = rest.get("/products", (req, res, ctx) => {
-  return res(
-    ctx.status(200),
-    ctx.json({
-      products: PRODUCTS_LIST,
-    })
-  );
-});
+const getProducts = rest.get(
+  "https://cofee-delivery.com/api/products",
+  (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        products: PRODUCTS_LIST,
+      })
+    );
+  }
+);
 
 export const handlers = [getProducts];
