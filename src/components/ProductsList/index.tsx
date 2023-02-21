@@ -1,5 +1,5 @@
 import { CoffeeCard } from "../CoffeeCard";
-
+import { Error } from "../Error";
 import { ProductListContainer, ProductsGrid } from "./styles";
 import { Product } from "../../@types/types";
 
@@ -15,6 +15,8 @@ export const ProductsList = ({
   products,
 }: ProductsListProps) => {
   if (isLoading) return <div>isLoading</div>;
+
+  if (isError) return <Error />;
 
   return (
     <ProductListContainer>
