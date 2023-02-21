@@ -87,5 +87,10 @@ export const Actions = styled.div`
     &:hover {
       background-color: ${(props) => props.theme.purple};
     }
+
+    &:disabled:hover {
+      cursor: not-allowed;
+      background-color: ${(props) => props.theme["purple-dark"]};
+    }
   }
 `;

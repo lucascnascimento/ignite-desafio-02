@@ -41,8 +41,11 @@ export const CoffeeCard = ({ product }: CoffeeCardProps) => {
           )}
         </PriceTag>
         <Actions>
-          <Counter onChangeValue={handleCounterValueChange} />
-          <button>
+          <Counter
+            onChangeValue={handleCounterValueChange}
+            disabled={!isAvailable}
+          />
+          <button disabled={!isAvailable}>
             <ShoppingCart weight="fill" size={22} />
           </button>
         </Actions>

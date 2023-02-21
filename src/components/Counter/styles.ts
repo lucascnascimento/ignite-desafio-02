@@ -24,5 +24,10 @@ export const CounterContainer = styled.div`
     &:hover {
       color: ${(props) => props.theme["purple-dark"]};
     }
+
+    &:disabled:hover {
+      cursor: not-allowed;
+      color: ${(props) => props.theme.purple};
+    }
   }
 `;
