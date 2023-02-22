@@ -2,8 +2,10 @@ import { Actions, CardContainer, TagContainer, PriceTag } from "./styles";
 import { ShoppingCart } from "phosphor-react";
 import { Counter } from "../Counter";
 import { Product } from "../../@types/types";
+import { useCart } from "../../contexts/Cart/useCart";
 
 import { formatMoney } from "../../utils";
+import { useState } from "react";
 
 type CoffeeCardProps = {
   product: Product;
@@ -11,9 +13,15 @@ type CoffeeCardProps = {
 
 export const CoffeeCard = ({ product }: CoffeeCardProps) => {
   const { description, imgSrc, isAvailable, name, tags, valueCents } = product;
+  const [quantity, setQuantity] = useState(0);
+  const { addToCart } = useCart();
 
   const handleCounterValueChange = (value: number) => {
-    console.log(value);
+    setQuantity(value);
+  };
+
+  const handleCartClick = () => {
+    addToCart({ ...product, quantity });
   };
 
   return (
@@ -45,7 +53,7 @@ export const CoffeeCard = ({ product }: CoffeeCardProps) => {
             onChangeValue={handleCounterValueChange}
             disabled={!isAvailable}
           />
-          <button disabled={!isAvailable}>
+          <button disabled={!isAvailable} onClick={handleCartClick}>
             <ShoppingCart weight="fill" size={22} />
           </button>
         </Actions>
