@@ -49,5 +49,5 @@ export const Counter = styled.div`
   left: 26.35px;
   font-size: 0.75rem;
   border-radius: 50%;
-  line-height: 130%;
+  line-height: 0;
 `;

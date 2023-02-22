@@ -4,8 +4,11 @@ import { ShoppingCart, MapPin } from "phosphor-react";
 import logo from "../../assets/images/logo.svg";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../utils/constants";
+import { useCart } from "../../contexts/Cart/useCart";
 
 export const Header = () => {
+  const { numberOfItems } = useCart();
+
   return (
     <HeaderContainer>
       <Link to={ROUTES.home}>
@@ -19,7 +22,7 @@ export const Header = () => {
         <Link to={ROUTES.checkout}>
           <Cart>
             <ShoppingCart weight="fill" size={22} />
-            <Counter>3</Counter>
+            {!!numberOfItems && <Counter>{numberOfItems}</Counter>}
           </Cart>
         </Link>
       </div>
