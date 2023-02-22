@@ -7,3 +7,5 @@ export type Product = {
   isAvailable: boolean;
   imgSrc: string;
 };
+
+export type CartProduct = Product & { quantity: number };
