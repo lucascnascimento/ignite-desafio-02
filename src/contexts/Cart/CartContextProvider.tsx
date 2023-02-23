@@ -12,6 +12,7 @@ export type CartContextType = {
   deliveryCost: number;
   numberOfItems: number;
   totalCost: number;
+  itemsCost: number;
 };
 
 interface CartContextProps {
@@ -32,7 +33,8 @@ export const CartContextProvider = ({ children }: CartContextProps) => {
         updateCart: () => {},
         deliveryCost: state.deliveryCost,
         numberOfItems: state.numberOfItems,
-        totalCost: state.numberOfItems,
+        totalCost: state.totalCost,
+        itemsCost: state.itemsCost,
       }}
     >
       {children}

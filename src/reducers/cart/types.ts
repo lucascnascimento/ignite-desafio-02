@@ -40,4 +40,5 @@ export type CartState = {
   deliveryCost: number;
   numberOfItems: number;
   totalCost: number;
+  itemsCost: number;
 };

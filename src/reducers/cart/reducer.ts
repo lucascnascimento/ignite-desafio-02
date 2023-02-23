@@ -6,6 +6,7 @@ export const INITIAL_STATE: CartState = {
   deliveryCost: 0,
   numberOfItems: 0,
   totalCost: 0,
+  itemsCost: 0,
 };
 
 const MAX_NUMBER_OF_ITEMS = 99;
@@ -14,7 +15,7 @@ const calculateDeliveryCost = (totalValue: number) => {
   return totalValue * 0.1;
 };
 
-const calculateTotalCost = (products: CartProduct[]) => {
+const calculateItemsCost = (products: CartProduct[]) => {
   return products.reduce((acc, currentProduct) => {
     return acc + currentProduct.quantity * currentProduct.valueCents;
   }, 0);
@@ -57,8 +58,9 @@ export const cartReducer = (
         newProducts = [...state.products, product];
       }
 
-      const totalCost = calculateTotalCost(newProducts);
-      const deliveryCost = calculateDeliveryCost(totalCost);
+      const itemsCost = calculateItemsCost(newProducts);
+      const deliveryCost = calculateDeliveryCost(itemsCost);
+      const totalCost = itemsCost + deliveryCost;
       const numberOfItems = newProducts.length;
 
       return {
@@ -66,6 +68,7 @@ export const cartReducer = (
         totalCost,
         deliveryCost,
         numberOfItems,
+        itemsCost,
       };
     }
     case CartActionTypes.REMOVE_FROM_CART: {
@@ -78,8 +81,9 @@ export const cartReducer = (
 
       clonedProductsArray.splice(indexToBeRemoved, 1);
 
-      const totalCost = calculateTotalCost(clonedProductsArray);
-      const deliveryCost = calculateDeliveryCost(totalCost);
+      const itemsCost = calculateItemsCost(clonedProductsArray);
+      const deliveryCost = calculateDeliveryCost(itemsCost);
+      const totalCost = itemsCost + deliveryCost;
       const numberOfItems = clonedProductsArray.length;
 
       return {
@@ -87,6 +91,7 @@ export const cartReducer = (
         totalCost,
         deliveryCost,
         numberOfItems,
+        itemsCost,
       };
     }
     case CartActionTypes.UPDATE_PRODUCT_QUANTITY: {
@@ -103,8 +108,9 @@ export const cartReducer = (
         return product;
       });
 
-      const totalCost = calculateTotalCost(updatedProducts);
-      const deliveryCost = calculateDeliveryCost(totalCost);
+      const itemsCost = calculateItemsCost(updatedProducts);
+      const deliveryCost = calculateDeliveryCost(itemsCost);
+      const totalCost = itemsCost + deliveryCost;
       const numberOfItems = updatedProducts.length;
 
       return {
@@ -112,6 +118,7 @@ export const cartReducer = (
         totalCost,
         deliveryCost,
         numberOfItems,
+        itemsCost,
       };
     }
     case CartActionTypes.CLEAN_UP_CART: {
