@@ -10,6 +10,7 @@ export const SectionContainer = styled.section`
   display: flex;
   gap: var(--size-12);
   flex-direction: column;
+  width: 100%;
 
   h1 {
     font-size: var(--font-18);
@@ -131,74 +132,6 @@ export const CartContainer = styled.div`
   border-radius: var(--border-radius-6) var(--border-radius-44);
 `;
 
-export const CartItemsList = styled.ul`
-  display: flex;
-  flex-direction: column;
-  padding-bottom: var(--size-12);
-
-  li {
-    padding: var(--size-12) 0;
-    border-bottom: 1px solid ${(props) => props.theme["base-button"]};
-  }
-
-  li:first-child {
-    padding-bottom: var(--size-12);
-    padding-top: 0;
-    border-top: none;
-  }
-`;
-
-export const CartItem = styled.li`
-  display: flex;
-  gap: var(--size-20);
-
-  img {
-    height: var(--size-64);
-    width: var(--size-64);
-  }
-`;
-
-export const Details = styled.div`
-  display: flex;
-  justify-content: space-between;
-
-  & > div {
-    display: flex;
-    gap: var(--size-8);
-    flex-direction: column;
-
-    & > div {
-      display: flex;
-      gap: var(--size-8);
-    }
-  }
-
-  & > span {
-    font-weight: var(--font-bold);
-    color: ${(props) => props.theme["base-text"]};
-  }
-`;
-
-export const DeleteButton = styled.button`
-  display: flex;
-  align-items: center;
-  gap: var(--size-4);
-  padding: var(--size-8);
-  font-size: var(--font-12);
-  color: ${(props) => props.theme["base-text"]};
-  background-color: ${(props) => props.theme["base-button"]};
-  border-radius: var(--border-radius-6);
-  cursor: pointer;
-
-  svg {
-    color: ${(props) => props.theme.purple};
-  }
-
-  &:hover {
-    background-color: ${(props) => props.theme["base-hover"]};
-  }
-`;
-
 export const PriceSection = styled.div`
   font-size: var(--font-14);
   color: ${(props) => props.theme["base-text"]};
@@ -236,5 +169,10 @@ export const ConfirmationButton = styled.button`
 
   &:hover {
     background-color: ${(props) => props.theme["yellow-dark"]};
+  }
+
+  &:disabled {
+    background-color: ${(props) => props.theme["yellow-light"]};
+    cursor: not-allowed;
   }
 `;

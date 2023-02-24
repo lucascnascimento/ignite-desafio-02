@@ -1,5 +1,4 @@
 import { CreditCard, Bank, Money, Trash } from "phosphor-react";
-import { Counter } from "../../components/Counter";
 import { InformationBox } from "./components/InformationCard";
 import {
   InputBase,
@@ -9,17 +8,28 @@ import {
   PaymentSectionContainer,
   SectionContainer,
   CartContainer,
-  CartItem,
-  Details,
-  DeleteButton,
-  CartItemsList,
   PriceSection,
   ConfirmationButton,
 } from "./styles";
+import { useCart } from "../../contexts/Cart/useCart";
 
-import americano from "../../assets/images/products/americano.svg";
+import { formatMoney } from "../../utils";
+import { CartItemsList } from "./components/CartItemsList";
 
 export const Checkout = () => {
+  const { deliveryCost, totalCost, itemsCost, selectedProducts } = useCart();
+
+  const formattedItemsCost = formatMoney(itemsCost, {
+    hasPrefix: true,
+  });
+  const formattedTotalCost = formatMoney(totalCost, {
+    hasPrefix: true,
+  });
+  const formattedDeliveryCost = formatMoney(deliveryCost, {
+    hasPrefix: true,
+  });
+  const isCartDisabled = !selectedProducts.length;
+
   return (
     <CheckoutContainer>
       <SectionContainer>
@@ -92,58 +102,26 @@ export const Checkout = () => {
         <h1>Cafés selecionados</h1>
 
         <CartContainer>
-          <CartItemsList>
-            <CartItem>
-              <img src={americano} />
-              <Details>
-                <div>
-                  <span>Expresso Tradicional</span>
-                  <div>
-                    <Counter onChangeValue={() => {}} />
-                    <DeleteButton>
-                      <Trash size={16} />
-                      REMOVER
-                    </DeleteButton>
-                  </div>
-                </div>
-                <span>R$9,90</span>
-              </Details>
-            </CartItem>
-
-            <CartItem>
-              <img src={americano} />
-              <Details>
-                <div>
-                  <span>Expresso Tradicional</span>
-                  <div>
-                    <Counter onChangeValue={() => {}} />
-                    <DeleteButton>
-                      <Trash size={16} />
-                      REMOVER
-                    </DeleteButton>
-                  </div>
-                </div>
-                <span>R$9,90</span>
-              </Details>
-            </CartItem>
-          </CartItemsList>
+          <CartItemsList />
 
           <PriceSection>
             <div>
               <div>
                 <span>Total de itens</span>
-                <span>R$ 29,70</span>
+                <span>{formattedItemsCost}</span>
               </div>
               <div>
                 <span>Entrega</span>
-                <span>R$ 29,70</span>
+                <span>{formattedDeliveryCost}</span>
               </div>
               <div>
                 <span>Total</span>
-                <span>R$ 29,70</span>
+                <span>{formattedTotalCost}</span>
               </div>
             </div>
-            <ConfirmationButton>CONFIRMAR PEDIDO</ConfirmationButton>
+            <ConfirmationButton disabled={isCartDisabled}>
+              CONFIRMAR PEDIDO
+            </ConfirmationButton>
           </PriceSection>
         </CartContainer>
       </SectionContainer>

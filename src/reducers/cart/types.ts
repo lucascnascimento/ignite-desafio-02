@@ -7,17 +7,17 @@ export enum CartActionTypes {
   CLEAN_UP_CART = "CLEAN_UP_CART",
 }
 
-type AddToCartAction = {
+export type AddToCartAction = {
   type: typeof CartActionTypes.ADD_TO_CART;
   payload: { product: CartProduct };
 };
 
-type RemoveFromCartAction = {
+export type RemoveFromCartAction = {
   type: typeof CartActionTypes.REMOVE_FROM_CART;
   payload: { id: number };
 };
 
-type UpdateCartAction = {
+export type UpdateCartAction = {
   type: typeof CartActionTypes.UPDATE_PRODUCT_QUANTITY;
   payload: {
     quantity: number;

@@ -1,7 +1,12 @@
-import { CartProduct, Product } from "../../@types/types";
-import { CartAction, CartActionTypes } from "./types";
+import { CartProduct } from "../../@types/types";
+import {
+  CartActionTypes,
+  AddToCartAction,
+  RemoveFromCartAction,
+  UpdateCartAction,
+} from "./types";
 
-export const addToCartAction = (product: CartProduct): CartAction => {
+export const addToCartAction = (product: CartProduct): AddToCartAction => {
   return {
     type: CartActionTypes.ADD_TO_CART,
     payload: {
@@ -10,7 +15,7 @@ export const addToCartAction = (product: CartProduct): CartAction => {
   };
 };
 
-export const removeFromCartAction = (id: number) => {
+export const removeFromCartAction = (id: number): RemoveFromCartAction => {
   return {
     type: CartActionTypes.REMOVE_FROM_CART,
     payload: {
@@ -27,7 +32,7 @@ type UpdateProductQuantityArgs = {
 export const updateProductQuantityAction = ({
   quantity,
   id,
-}: UpdateProductQuantityArgs) => {
+}: UpdateProductQuantityArgs): UpdateCartAction => {
   return {
     type: CartActionTypes.UPDATE_PRODUCT_QUANTITY,
     payload: {

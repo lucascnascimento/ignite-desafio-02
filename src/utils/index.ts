@@ -7,11 +7,8 @@ type FormatMoney = (value: number, options?: Options) => string;
 
 const DEFAULT_OPTIONS = { isCents: true, hasPrefix: false };
 
-export const formatMoney: FormatMoney = (
-  value: number,
-  options = DEFAULT_OPTIONS
-) => {
-  const { hasPrefix, isCents } = options;
+export const formatMoney: FormatMoney = (value: number, options) => {
+  const { hasPrefix, isCents } = { ...DEFAULT_OPTIONS, ...options };
   let money = value;
 
   if (isCents) money = value / 100;
