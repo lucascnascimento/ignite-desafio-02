@@ -5,5 +5,5 @@ export const api = axios.create({
 });
 
 export const cepApi = axios.create({
-  baseURL: "viacep.com.br/ws",
+  baseURL: "https://viacep.com.br/ws",
 });

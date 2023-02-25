@@ -145,4 +145,4 @@ const getProducts = rest.get(
   }
 );
 
-export const handlers = [getProducts];
+export const productHandlers = [getProducts];
