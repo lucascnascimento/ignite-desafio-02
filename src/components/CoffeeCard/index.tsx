@@ -3,9 +3,11 @@ import { ShoppingCart } from "phosphor-react";
 import { Counter } from "../Counter";
 import { Product } from "../../@types/types";
 import { useCart } from "../../contexts/Cart/useCart";
+import { useNavigate } from "react-router-dom";
 
 import { formatMoney } from "../../utils";
 import { useState } from "react";
+import { ROUTES } from "../../utils/constants";
 
 type CoffeeCardProps = {
   product: Product;
@@ -15,6 +17,7 @@ export const CoffeeCard = ({ product }: CoffeeCardProps) => {
   const { description, imgSrc, isAvailable, name, tags, valueCents } = product;
   const [quantity, setQuantity] = useState(0);
   const { addToCart } = useCart();
+  const navigate = useNavigate();
 
   const handleCounterValueChange = (value: number) => {
     setQuantity(value);
@@ -22,6 +25,7 @@ export const CoffeeCard = ({ product }: CoffeeCardProps) => {
 
   const handleCartClick = () => {
     addToCart({ ...product, quantity });
+    navigate(ROUTES.checkout);
   };
 
   return (
