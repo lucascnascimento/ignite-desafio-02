@@ -1,8 +1,6 @@
-import { CreditCard, Bank, Money, Trash } from "phosphor-react";
+import { CreditCard, Bank, Money } from "phosphor-react";
 import { InformationBox } from "./components/InformationCard";
 import {
-  InputBase,
-  InputGrid,
   CheckoutContainer,
   PaymentSelectButton,
   PaymentSectionContainer,
@@ -15,10 +13,30 @@ import { useCart } from "../../contexts/Cart/useCart";
 
 import { formatMoney } from "../../utils";
 import { CartItemsList } from "./components/CartItemsList";
+import { AddressForm, ADDRESS_FORM_ID } from "./components/AdressForm";
+import { FormProvider, useForm } from "react-hook-form";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const addressFormSchema = z.object({
+  zipCode: z.string(),
+  street: z.string(),
+  number: z.number(),
+  complement: z.string(),
+  neighborhood: z.string(),
+  city: z.string(),
+  state: z.string(),
+});
+
+export type AddressFormInputs = z.infer<typeof addressFormSchema>;
 
 export const Checkout = () => {
   const { deliveryCost, totalCost, itemsCost, selectedProducts } = useCart();
-
+  // const addressForm = useForm<AddressFormInputs>({
+  //   resolver: zodResolver(addressFormSchema),
+  // });
+  const addressForm = useForm<AddressFormInputs>();
+  const { handleSubmit } = addressForm;
   const formattedItemsCost = formatMoney(itemsCost, {
     hasPrefix: true,
   });
@@ -28,7 +46,12 @@ export const Checkout = () => {
   const formattedDeliveryCost = formatMoney(deliveryCost, {
     hasPrefix: true,
   });
-  const isCartDisabled = !selectedProducts.length;
+  // const isCartDisabled = !selectedProducts.length;
+  const isCartDisabled = false;
+
+  const handleConfirmationButtonClick = (data: any) => {
+    console.log(data);
+  };
 
   return (
     <CheckoutContainer>
@@ -40,39 +63,9 @@ export const Checkout = () => {
           icon="mapPinLine"
           iconColor="base-card"
         >
-          <InputGrid>
-            <InputBase type={"text"} placeholder="CEP" className="zipCode" />
-            <InputBase
-              type={"text"}
-              placeholder="Rua"
-              className="street"
-              disabled
-            />
-            <InputBase type={"text"} placeholder="Número" className="number" />
-            <InputBase
-              type={"text"}
-              placeholder="Complemento"
-              className="complement"
-            />
-            <InputBase
-              type={"text"}
-              placeholder="Bairro"
-              className="neighborhood"
-              disabled
-            />
-            <InputBase
-              type={"text"}
-              placeholder="Cidade"
-              className="city"
-              disabled
-            />
-            <InputBase
-              type={"text"}
-              placeholder="UF"
-              className="state"
-              disabled
-            />
-          </InputGrid>
+          <FormProvider {...addressForm}>
+            <AddressForm />
+          </FormProvider>
         </InformationBox>
 
         <InformationBox
@@ -119,7 +112,11 @@ export const Checkout = () => {
                 <span>{formattedTotalCost}</span>
               </div>
             </div>
-            <ConfirmationButton disabled={isCartDisabled}>
+            <ConfirmationButton
+              disabled={isCartDisabled}
+              form={ADDRESS_FORM_ID}
+              onClick={handleSubmit(handleConfirmationButtonClick)}
+            >
               CONFIRMAR PEDIDO
             </ConfirmationButton>
           </PriceSection>

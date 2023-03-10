@@ -11,10 +11,9 @@ export type Product = {
 export type CartProduct = Product & { quantity: number };
 
 export type ZipCodeAdress = {
-  zipCode: string;
-  street: string;
-  complemento: string;
   bairro: string;
+  cep: string;
   localidade: string;
+  logradouro: string;
   uf: string;
 };
