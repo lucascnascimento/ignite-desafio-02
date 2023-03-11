@@ -13,7 +13,7 @@ export const AddressForm = () => {
     useFormContext<AddressFormInputs>();
   const zipCode = watch("zipCode");
 
-  const { data, isLoading, isError } = useFetchAdress(zipCode);
+  const { data, isError, isFetching } = useFetchAdress(zipCode);
 
   useEffect(() => {
     if (data) {
@@ -29,7 +29,9 @@ export const AddressForm = () => {
       <Controller
         name="zipCode"
         control={control}
-        render={({ field }) => <InputZipCode {...field} />}
+        render={({ field }) => (
+          <InputZipCode {...field} isLoading={isFetching} />
+        )}
       />
       <InputBase
         type={"text"}
