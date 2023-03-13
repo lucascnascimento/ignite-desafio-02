@@ -7,6 +7,7 @@ type InputZipCodeProps = {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
   isLoading: boolean;
+  isError: boolean;
 };
 
 export const InputZipCode = ({
@@ -14,6 +15,7 @@ export const InputZipCode = ({
   onChange,
   onBlur,
   isLoading,
+  isError,
 }: InputZipCodeProps) => {
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const formattedValue = e.target.value.replace(/\D/g, "").slice(0, 8);
@@ -50,6 +52,7 @@ export const InputZipCode = ({
         placeholder="CEP"
         value={value}
         className="zipCode"
+        isError={isError}
       />
       {isLoading ? <CircleNotch size={24} /> : null}
     </InputZipCodeContainer>

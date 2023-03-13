@@ -5,15 +5,30 @@ import { useFetchAdress } from "../../../../hooks/useFetchAddress";
 import { InputBase } from "../../../../styles/components/InputBase";
 import { InputZipCode } from "../InputZipCode";
 import { InputGrid } from "./styles";
+import { toast } from "react-toastify";
 
 export const ADDRESS_FORM_ID = "addressForm";
+const ZIP_CODE_SIZE = 8;
 
 export const AddressForm = () => {
-  const { register, control, watch, setValue } =
+  const { register, control, watch, setValue, resetField } =
     useFormContext<AddressFormInputs>();
   const zipCode = watch("zipCode");
+  const isZipCodeEnabled = zipCode?.length === ZIP_CODE_SIZE;
+  const { data, isFetching, isError } = useFetchAdress(
+    zipCode,
+    isZipCodeEnabled
+  );
+  const isZipCodeError = isError && isZipCodeEnabled;
 
-  const { data, isError, isFetching } = useFetchAdress(zipCode);
+  const clearForm = () => {
+    resetField("city");
+    resetField("complement");
+    resetField("neighborhood");
+    resetField("number");
+    resetField("state");
+    resetField("street");
+  };
 
   useEffect(() => {
     if (data) {
@@ -24,13 +39,29 @@ export const AddressForm = () => {
     }
   }, [data]);
 
+  useEffect(() => {
+    if (isError) {
+      toast.error("CEP não encontrado");
+    }
+  }, [isError]);
+
+  useEffect(() => {
+    if (!isZipCodeEnabled) {
+      clearForm();
+    }
+  }, [zipCode]);
+
   return (
     <InputGrid id={ADDRESS_FORM_ID}>
       <Controller
         name="zipCode"
         control={control}
         render={({ field }) => (
-          <InputZipCode {...field} isLoading={isFetching} />
+          <InputZipCode
+            {...field}
+            isLoading={isFetching}
+            isError={isZipCodeError}
+          />
         )}
       />
       <InputBase

@@ -1,10 +1,16 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-export const InputBase = styled.input`
+type InputBaseProps = {
+  isError?: boolean;
+};
+
+export const InputBase = styled.input<InputBaseProps>`
   padding: var(--size-12);
   color: ${(props) => props.theme["base-text"]};
   background-color: ${(props) => props.theme["base-input"]};
   border: 1px solid ${(props) => props.theme["base-button"]};
+  border-color: ${(props) =>
+    props.isError ? props.theme.red : props.theme["base-button"]};
   border-radius: 4px;
   font-family: "Roboto", sans-serif;
   font-weight: var(--font-regular);
@@ -17,7 +23,9 @@ export const InputBase = styled.input`
 
   :focus {
     outline: 0;
-    box-shadow: 0 0 0 2px ${(props) => props.theme["yellow-dark"]};
+    box-shadow: 0 0 0 2px
+      ${(props) =>
+        props.isError ? props.theme.red : props.theme["yellow-dark"]};
   }
 
   ::placeholder {

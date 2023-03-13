@@ -5,8 +5,17 @@ import { Router } from "./Router";
 import { BrowserRouter } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { CartContextProvider } from "./contexts/Cart/CartContextProvider";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: false,
+    },
+  },
+});
 
 function App() {
   return (
@@ -15,6 +24,7 @@ function App() {
         <CartContextProvider>
           <BrowserRouter>
             <Router />
+            <ToastContainer />
           </BrowserRouter>
         </CartContextProvider>
       </QueryClientProvider>
