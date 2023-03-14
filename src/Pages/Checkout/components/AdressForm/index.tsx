@@ -72,7 +72,8 @@ export const AddressForm = () => {
         {...register("street")}
       />
       <InputBase
-        type={"text"}
+        type={"number"}
+        min={0}
         placeholder="Número"
         className="number"
         {...register("number")}

@@ -11,7 +11,7 @@ type InputZipCodeProps = {
 };
 
 export const InputZipCode = ({
-  value,
+  value = "",
   onChange,
   onBlur,
   isLoading,

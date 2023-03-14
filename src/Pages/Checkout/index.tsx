@@ -18,11 +18,13 @@ import { FormProvider, useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+const ZIP_CODE_SIZE = 8;
+
 const addressFormSchema = z.object({
-  zipCode: z.string(),
+  zipCode: z.string().length(ZIP_CODE_SIZE),
   street: z.string(),
   number: z.number(),
-  complement: z.string(),
+  complement: z.string().optional(),
   neighborhood: z.string(),
   city: z.string(),
   state: z.string(),
@@ -32,11 +34,10 @@ export type AddressFormInputs = z.infer<typeof addressFormSchema>;
 
 export const Checkout = () => {
   const { deliveryCost, totalCost, itemsCost, selectedProducts } = useCart();
-  // const addressForm = useForm<AddressFormInputs>({
-  //   resolver: zodResolver(addressFormSchema),
-  // });
-  const addressForm = useForm<AddressFormInputs>();
-  const { handleSubmit } = addressForm;
+  const addressForm = useForm<AddressFormInputs>({
+    resolver: zodResolver(addressFormSchema),
+  });
+  const { handleSubmit, formState } = addressForm;
   const formattedItemsCost = formatMoney(itemsCost, {
     hasPrefix: true,
   });
@@ -46,8 +47,9 @@ export const Checkout = () => {
   const formattedDeliveryCost = formatMoney(deliveryCost, {
     hasPrefix: true,
   });
-  // const isCartDisabled = !selectedProducts.length;
-  const isCartDisabled = false;
+
+  console.log(formState.isValid);
+  const isCartDisabled = !selectedProducts.length || !formState.isValid;
 
   const handleConfirmationButtonClick = (data: any) => {
     console.log(data);
