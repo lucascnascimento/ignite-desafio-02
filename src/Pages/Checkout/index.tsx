@@ -36,6 +36,7 @@ export const Checkout = () => {
   const { deliveryCost, totalCost, itemsCost, selectedProducts } = useCart();
   const addressForm = useForm<AddressFormInputs>({
     resolver: zodResolver(addressFormSchema),
+    mode: "onChange",
   });
   const { handleSubmit, formState } = addressForm;
   const formattedItemsCost = formatMoney(itemsCost, {
@@ -48,7 +49,6 @@ export const Checkout = () => {
     hasPrefix: true,
   });
 
-  console.log(formState.isValid);
   const isCartDisabled = !selectedProducts.length || !formState.isValid;
 
   const handleConfirmationButtonClick = (data: any) => {
