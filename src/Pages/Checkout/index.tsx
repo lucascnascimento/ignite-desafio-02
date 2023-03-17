@@ -17,8 +17,12 @@ import { AddressForm, ADDRESS_FORM_ID } from "./components/AdressForm";
 import { FormProvider, useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 
 const ZIP_CODE_SIZE = 8;
+const CREDIT_CARD = "creditCard";
+const DEBIT_CARD = "debitCard";
+const MONEY = "money";
 
 const addressFormSchema = z.object({
   zipCode: z.string().length(ZIP_CODE_SIZE),
@@ -34,6 +38,7 @@ export type AddressFormInputs = z.infer<typeof addressFormSchema>;
 
 export const Checkout = () => {
   const { deliveryCost, totalCost, itemsCost, selectedProducts } = useCart();
+  const [paymentType, setPaymentType] = useState(CREDIT_CARD);
   const addressForm = useForm<AddressFormInputs>({
     resolver: zodResolver(addressFormSchema),
     mode: "onChange",
@@ -50,6 +55,10 @@ export const Checkout = () => {
   });
 
   const isCartDisabled = !selectedProducts.length || !formState.isValid;
+
+  const handlePaymentSelection = (type: string) => () => {
+    setPaymentType(type);
+  };
 
   const handleConfirmationButtonClick = (data: any) => {
     console.log(data);
@@ -77,15 +86,24 @@ export const Checkout = () => {
           iconColor="base-card"
         >
           <PaymentSectionContainer>
-            <PaymentSelectButton active={false}>
+            <PaymentSelectButton
+              active={paymentType === CREDIT_CARD}
+              onClick={handlePaymentSelection(CREDIT_CARD)}
+            >
               <CreditCard size={16} />
               CARTÃO DE CRÉDITO
             </PaymentSelectButton>
-            <PaymentSelectButton active={false}>
+            <PaymentSelectButton
+              active={paymentType === DEBIT_CARD}
+              onClick={handlePaymentSelection(DEBIT_CARD)}
+            >
               <Bank size={16} />
               CARTÃO DE DÉBITO
             </PaymentSelectButton>
-            <PaymentSelectButton active={true}>
+            <PaymentSelectButton
+              active={paymentType === MONEY}
+              onClick={handlePaymentSelection(MONEY)}
+            >
               <Money size={16} />
               DINHEIRO
             </PaymentSelectButton>
