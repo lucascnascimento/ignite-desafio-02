@@ -4,6 +4,7 @@ import { GlobalStyles } from "./styles/global";
 import { Router } from "./Router";
 import { BrowserRouter } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { CartContextProvider } from "./contexts/Cart/CartContextProvider";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -27,6 +28,7 @@ function App() {
             <ToastContainer />
           </BrowserRouter>
         </CartContextProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
       <GlobalStyles />
     </ThemeProvider>
