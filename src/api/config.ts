@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "https://cofee-delivery.com/api",
+  baseURL: "https://coffee-delivery.com/api",
 });
 
 export const cepApi = axios.create({

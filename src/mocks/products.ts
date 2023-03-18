@@ -134,7 +134,7 @@ const PRODUCTS_LIST = [
 ];
 
 const getProducts = rest.get(
-  "https://cofee-delivery.com/api/products",
+  "https://coffee-delivery.com/api/products",
   (req, res, ctx) => {
     return res(
       ctx.status(200),
@@ -146,7 +146,7 @@ const getProducts = rest.get(
 );
 
 const postPurchase = rest.post(
-  "https://cofee-delivery.com/api/checkout",
+  "https://coffee-delivery.com/api/checkout",
   (req, res, ctx) => {
     return res(
       ctx.status(200),
