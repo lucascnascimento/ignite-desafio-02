@@ -4,6 +4,7 @@ import {
   AddToCartAction,
   RemoveFromCartAction,
   UpdateCartAction,
+  CleanUpCart,
 } from "./types";
 
 export const addToCartAction = (product: CartProduct): AddToCartAction => {
@@ -40,4 +41,8 @@ export const updateProductQuantityAction = ({
       id,
     },
   };
+};
+
+export const cleanUpCartAction = (): CleanUpCart => {
+  return { type: CartActionTypes.CLEAN_UP_CART };
 };

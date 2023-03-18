@@ -1,10 +1,11 @@
-import { ReactNode, useReducer } from "react";
+import { ReactNode, useCallback, useReducer } from "react";
 import { Product, CartProduct } from "../../@types/types";
 
 import {
   addToCartAction,
   removeFromCartAction,
   updateProductQuantityAction,
+  cleanUpCartAction,
 } from "../../reducers/cart/actions";
 import { cartReducer, INITIAL_STATE } from "../../reducers/cart/reducer";
 import { CartContext } from "./useCart";
@@ -13,6 +14,7 @@ export type CartContextType = {
   addToCart: (product: CartProduct) => void;
   removeFromCart: (id: number) => void;
   updateCart: (id: number, quantity: number) => void;
+  cleanUpCart: () => void;
   deliveryCost: number;
   numberOfItems: number;
   totalCost: number;
@@ -27,17 +29,21 @@ interface CartContextProps {
 export const CartContextProvider = ({ children }: CartContextProps) => {
   const [state, dispatch] = useReducer(cartReducer, INITIAL_STATE);
 
-  const addToCart = (product: CartProduct) => {
+  const addToCart = useCallback((product: CartProduct) => {
     dispatch(addToCartAction(product));
-  };
+  }, []);
 
-  const removeFromCart = (id: number) => {
+  const removeFromCart = useCallback((id: number) => {
     dispatch(removeFromCartAction(id));
-  };
+  }, []);
 
-  const updateCart = (id: number, quantity: number) => {
+  const updateCart = useCallback((id: number, quantity: number) => {
     dispatch(updateProductQuantityAction({ quantity, id }));
-  };
+  }, []);
+
+  const cleanUpCart = useCallback(() => {
+    dispatch(cleanUpCartAction());
+  }, []);
 
   return (
     <CartContext.Provider
@@ -45,6 +51,7 @@ export const CartContextProvider = ({ children }: CartContextProps) => {
         addToCart,
         removeFromCart,
         updateCart,
+        cleanUpCart,
         deliveryCost: state.deliveryCost,
         numberOfItems: state.numberOfItems,
         totalCost: state.totalCost,

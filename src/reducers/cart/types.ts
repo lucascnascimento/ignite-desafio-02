@@ -25,7 +25,7 @@ export type UpdateCartAction = {
   };
 };
 
-type CleanUpCart = {
+export type CleanUpCart = {
   type: typeof CartActionTypes.CLEAN_UP_CART;
 };
 

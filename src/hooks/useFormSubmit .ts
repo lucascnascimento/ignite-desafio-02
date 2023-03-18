@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { ROUTES } from "../utils/constants";
 import { postCheckout } from "../api/checkout";
 import { CheckoutPayload } from "../@types/types";
+import { useCart } from "../contexts/Cart/useCart";
 
 type SuccessfullRequest = {
   purchaseId: number;
@@ -13,10 +14,12 @@ type SuccessfullRequest = {
 
 export const useFormSubmit = () => {
   const navigate = useNavigate();
+  const { cleanUpCart } = useCart();
 
   const onSuccess = ({ purchaseId, success, payload }: SuccessfullRequest) => {
     const params = { success: success.toString(), id: purchaseId.toString() };
 
+    cleanUpCart();
     navigate(
       {
         pathname: ROUTES.success,
