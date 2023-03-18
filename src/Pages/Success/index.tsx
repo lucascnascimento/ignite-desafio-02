@@ -1,8 +1,18 @@
 import { MapPin, Timer, CurrencyDollar } from "phosphor-react";
+import { useLocation, useNavigate } from "react-router-dom";
 import delivery from "../../assets/images/delivery.svg";
 import { Info, OrderInfoBox, SuccessContainer } from "./styles";
 
 export const Success = () => {
+  const navigate = useNavigate();
+  const { search } = useLocation();
+  const queryParams = new URLSearchParams(search);
+  const purchaseSuccess = queryParams.get("success") === "true";
+
+  if (!purchaseSuccess) {
+    navigate("/");
+  }
+
   return (
     <SuccessContainer>
       <div>

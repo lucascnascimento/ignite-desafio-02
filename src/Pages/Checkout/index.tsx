@@ -18,11 +18,11 @@ import { FormProvider, useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
+import { useFormSubmit } from "../../hooks/useFormSubmit ";
+import { CREDIT_CARD, DEBIT_CARD, MONEY } from "../../utils/constants";
+import { PaymentOption } from "../../@types/types";
 
 const ZIP_CODE_SIZE = 8;
-const CREDIT_CARD = "creditCard";
-const DEBIT_CARD = "debitCard";
-const MONEY = "money";
 
 const addressFormSchema = z.object({
   zipCode: z.string().length(ZIP_CODE_SIZE),
@@ -38,11 +38,12 @@ export type AddressFormInputs = z.infer<typeof addressFormSchema>;
 
 export const Checkout = () => {
   const { deliveryCost, totalCost, itemsCost, selectedProducts } = useCart();
-  const [paymentType, setPaymentType] = useState(CREDIT_CARD);
+  const [paymentType, setPaymentType] = useState<PaymentOption>(CREDIT_CARD);
   const addressForm = useForm<AddressFormInputs>({
     resolver: zodResolver(addressFormSchema),
     mode: "onChange",
   });
+  const { postForm } = useFormSubmit();
   const { handleSubmit, formState } = addressForm;
   const formattedItemsCost = formatMoney(itemsCost, {
     hasPrefix: true,
@@ -56,12 +57,14 @@ export const Checkout = () => {
 
   const isCartDisabled = !selectedProducts.length || !formState.isValid;
 
-  const handlePaymentSelection = (type: string) => () => {
+  const handlePaymentSelection = (type: PaymentOption) => () => {
     setPaymentType(type);
   };
 
-  const handleConfirmationButtonClick = (data: any) => {
-    console.log(data);
+  const handleConfirmationButtonClick = (data: AddressFormInputs) => {
+    const payload = { ...data, paymentType };
+
+    postForm(payload);
   };
 
   return (

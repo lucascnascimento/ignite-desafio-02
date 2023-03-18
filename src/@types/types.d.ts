@@ -1,3 +1,5 @@
+import { PAYMENT_OPTIONS } from "../utils/constants";
+
 export type Product = {
   id: number;
   name: string;
@@ -16,4 +18,17 @@ export type ZipCodeAdress = {
   localidade: string;
   logradouro: string;
   uf: string;
+};
+
+export type PaymentOption = typeof PAYMENT_OPTIONS[number];
+
+export type CheckoutPayload = {
+  complement?: string | undefined;
+  number: number;
+  zipCode: string;
+  street: string;
+  neighborhood: string;
+  city: string;
+  state: string;
+  paymentType: PaymentOption;
 };

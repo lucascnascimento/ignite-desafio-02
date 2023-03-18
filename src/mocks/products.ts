@@ -145,4 +145,17 @@ const getProducts = rest.get(
   }
 );
 
-export const productHandlers = [getProducts];
+const postPurchase = rest.post(
+  "https://cofee-delivery.com/api/checkout",
+  (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        success: true,
+        purchaseId: 1321312,
+      })
+    );
+  }
+);
+
+export const productHandlers = [getProducts, postPurchase];
