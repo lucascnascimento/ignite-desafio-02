@@ -147,12 +147,14 @@ const getProducts = rest.get(
 
 const postPurchase = rest.post(
   "https://coffee-delivery.com/api/checkout",
-  (req, res, ctx) => {
+  async (req, res, ctx) => {
+    const body = await req.json();
     return res(
       ctx.status(200),
       ctx.json({
         success: true,
         purchaseId: 1321312,
+        payload: body,
       })
     );
   }

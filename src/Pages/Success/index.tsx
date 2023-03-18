@@ -1,16 +1,20 @@
 import { MapPin, Timer, CurrencyDollar } from "phosphor-react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Navigate, useLocation, useSearchParams } from "react-router-dom";
+import { CheckoutPayload } from "../../@types/types";
 import delivery from "../../assets/images/delivery.svg";
+import { PAYMENT_DICTIONARY, ROUTES } from "../../utils/constants";
 import { Info, OrderInfoBox, SuccessContainer } from "./styles";
 
 export const Success = () => {
-  const navigate = useNavigate();
-  const { search } = useLocation();
-  const queryParams = new URLSearchParams(search);
-  const purchaseSuccess = queryParams.get("success") === "true";
+  const [searchParams] = useSearchParams();
+  const { state: locationState } = useLocation();
+  const purchaseSuccess = searchParams.get("success") === "true";
+  const purchaseId = searchParams.get("id");
+  const { city, neighborhood, number, paymentType, state, street } =
+    locationState as CheckoutPayload;
 
-  if (!purchaseSuccess) {
-    navigate("/");
+  if (!purchaseSuccess || !purchaseId || !locationState) {
+    return <Navigate to={ROUTES.home} />;
   }
 
   return (
@@ -25,9 +29,14 @@ export const Success = () => {
             </div>
             <div>
               <span>
-                Entrega em <strong>Rua João Daniel Martinelli, 102</strong>
+                Entrega em{" "}
+                <strong>
+                  {street}, {number}
+                </strong>
               </span>
-              <span>Farrapos - Porto Alegre, RS</span>
+              <span>
+                {neighborhood} - {city}, {state}
+              </span>
             </div>
           </Info>
 
@@ -47,7 +56,7 @@ export const Success = () => {
             </div>
             <div>
               <span>Pagamento na entrega</span>
-              <strong>Cartão de Crédito</strong>
+              <strong>{PAYMENT_DICTIONARY.get(paymentType)}</strong>
             </div>
           </Info>
         </OrderInfoBox>
