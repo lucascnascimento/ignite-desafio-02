@@ -23,7 +23,7 @@ export const Location = styled.div`
   color: ${(props) => props.theme["purple-dark"]};
 `;
 
-export const Cart = styled.a`
+export const Cart = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
