@@ -62,7 +62,7 @@ export const Checkout = () => {
   };
 
   const handleConfirmationButtonClick = (data: AddressFormInputs) => {
-    const payload = { ...data, paymentType };
+    const payload = { ...data, paymentType, products: selectedProducts };
 
     postForm(payload);
   };

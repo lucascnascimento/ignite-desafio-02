@@ -31,4 +31,5 @@ export type CheckoutPayload = {
   city: string;
   state: string;
   paymentType: PaymentOption;
+  products: CartProduct[];
 };
