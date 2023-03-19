@@ -6,22 +6,25 @@ import { InputBase } from "../../../../styles/components/InputBase";
 import { InputZipCode } from "../InputZipCode";
 import { InputGrid } from "./styles";
 import { toast } from "react-toastify";
+import { getFromLocalStorage, setToLocalStorage } from "../../../../utils";
 
 export const ADDRESS_FORM_ID = "addressForm";
 const ZIP_CODE_SIZE = 8;
+export const FORM_KEY = "@ignite-coffee-delivery:form-state-1.0.0";
 
 export const AddressForm = () => {
   const { register, control, watch, setValue, resetField } =
     useFormContext<AddressFormInputs>();
-  const zipCode = watch("zipCode");
-  const isZipCodeEnabled = zipCode?.length === ZIP_CODE_SIZE;
+  const formState = watch();
+  const { zipCode } = formState;
+  const isZipCodeEnabled = () => zipCode?.length === ZIP_CODE_SIZE;
   const { data, isFetching, isError } = useFetchAdress(
     zipCode,
-    isZipCodeEnabled
+    isZipCodeEnabled()
   );
-  const isZipCodeError = isError && isZipCodeEnabled;
+  const isZipCodeError = isError && isZipCodeEnabled();
 
-  const clearForm = () => {
+  const cleanForm = () => {
     resetField("city");
     resetField("complement");
     resetField("neighborhood");
@@ -46,10 +49,34 @@ export const AddressForm = () => {
   }, [isError]);
 
   useEffect(() => {
-    if (!isZipCodeEnabled) {
-      clearForm();
+    if (!isZipCodeEnabled()) {
+      cleanForm();
     }
   }, [zipCode]);
+
+  useEffect(() => {
+    const isFormFilled = Object.values(formState).some((state) => !!state);
+
+    if (isFormFilled) {
+      setToLocalStorage(formState, FORM_KEY);
+    }
+  }, [formState]);
+
+  useEffect(() => {
+    const localStorageForm: AddressFormInputs = getFromLocalStorage(FORM_KEY);
+
+    if (!localStorageForm) return;
+
+    if (Object.keys(localStorageForm)) {
+      setValue("city", localStorageForm.city);
+      setValue("complement", localStorageForm.complement);
+      setValue("neighborhood", localStorageForm.neighborhood);
+      setValue("number", localStorageForm.number);
+      setValue("state", localStorageForm.state);
+      setValue("street", localStorageForm.street);
+      setValue("zipCode", localStorageForm.zipCode);
+    }
+  }, []);
 
   return (
     <InputGrid id={ADDRESS_FORM_ID}>
@@ -76,7 +103,7 @@ export const AddressForm = () => {
         min={0}
         placeholder="Número"
         className="number"
-        {...register("number")}
+        {...register("number", { valueAsNumber: true })}
       />
       <InputBase
         type={"text"}

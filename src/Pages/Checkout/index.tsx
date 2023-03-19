@@ -34,6 +34,11 @@ const addressFormSchema = z.object({
   state: z.string(),
 });
 
+const formatCurrency = (value: number) =>
+  formatMoney(value, {
+    hasPrefix: true,
+  });
+
 export type AddressFormInputs = z.infer<typeof addressFormSchema>;
 
 export const Checkout = () => {
@@ -45,15 +50,10 @@ export const Checkout = () => {
   });
   const { postForm } = useFormSubmit();
   const { handleSubmit, formState } = addressForm;
-  const formattedItemsCost = formatMoney(itemsCost, {
-    hasPrefix: true,
-  });
-  const formattedTotalCost = formatMoney(totalCost, {
-    hasPrefix: true,
-  });
-  const formattedDeliveryCost = formatMoney(deliveryCost, {
-    hasPrefix: true,
-  });
+
+  const formattedItemsCost = formatCurrency(itemsCost);
+  const formattedTotalCost = formatCurrency(totalCost);
+  const formattedDeliveryCost = formatCurrency(deliveryCost);
 
   const isCartDisabled = !selectedProducts.length || !formState.isValid;
 
