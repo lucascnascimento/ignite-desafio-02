@@ -1,5 +1,5 @@
-import { ReactNode, useCallback, useReducer } from "react";
-import { Product, CartProduct } from "../../@types/types";
+import { ReactNode, useCallback, useEffect, useReducer } from "react";
+import { CartProduct } from "../../@types/types";
 
 import {
   addToCartAction,
@@ -8,6 +8,8 @@ import {
   cleanUpCartAction,
 } from "../../reducers/cart/actions";
 import { cartReducer, INITIAL_STATE } from "../../reducers/cart/reducer";
+import { CartState } from "../../reducers/cart/types";
+import { getFromLocalStorage, setToLocalStorage } from "../../utils";
 import { CartContext } from "./useCart";
 
 export type CartContextType = {
@@ -26,8 +28,12 @@ interface CartContextProps {
   children: ReactNode;
 }
 
+const CART_KEY = "@ignite-coffee-delivery:cart-state-1.0.0";
+
 export const CartContextProvider = ({ children }: CartContextProps) => {
-  const [state, dispatch] = useReducer(cartReducer, INITIAL_STATE);
+  const [state, dispatch] = useReducer(cartReducer, INITIAL_STATE, () =>
+    getFromLocalStorage(CART_KEY)
+  );
 
   const addToCart = useCallback((product: CartProduct) => {
     dispatch(addToCartAction(product));
@@ -44,6 +50,10 @@ export const CartContextProvider = ({ children }: CartContextProps) => {
   const cleanUpCart = useCallback(() => {
     dispatch(cleanUpCartAction());
   }, []);
+
+  useEffect(() => {
+    setToLocalStorage<CartState>(state, CART_KEY);
+  }, [state]);
 
   return (
     <CartContext.Provider

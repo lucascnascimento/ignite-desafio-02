@@ -20,3 +20,13 @@ export const formatMoney: FormatMoney = (value: number, options) => {
     style: hasPrefix ? "currency" : "decimal",
   }).format(money);
 };
+
+export const getFromLocalStorage = (key: string) => {
+  const storedState = localStorage.getItem(key);
+
+  return storedState ? JSON.parse(storedState) : undefined;
+};
+
+export const setToLocalStorage = <T>(state: T, key: string) => {
+  localStorage.setItem(key, JSON.stringify(state));
+};
