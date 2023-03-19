@@ -31,8 +31,16 @@ interface CartContextProps {
 const CART_KEY = "@ignite-coffee-delivery:cart-state-1.0.0";
 
 export const CartContextProvider = ({ children }: CartContextProps) => {
-  const [state, dispatch] = useReducer(cartReducer, INITIAL_STATE, () =>
-    getFromLocalStorage(CART_KEY)
+  const [state, dispatch] = useReducer(
+    cartReducer,
+    INITIAL_STATE,
+    (initialState: CartState) => {
+      const localStorageState = getFromLocalStorage(CART_KEY);
+
+      if (!localStorageState) return initialState;
+
+      return localStorageState;
+    }
   );
 
   const addToCart = useCallback((product: CartProduct) => {
