@@ -1,4 +1,4 @@
-import { CreditCard, Bank, Money } from "phosphor-react";
+import { CreditCard, Bank, Money, CircleNotch } from "phosphor-react";
 import { InformationBox } from "./components/InformationCard";
 import {
   CheckoutContainer,
@@ -48,14 +48,15 @@ export const Checkout = () => {
     resolver: zodResolver(addressFormSchema),
     mode: "onChange",
   });
-  const { postForm } = useFormSubmit();
+  const { postForm, isLoading } = useFormSubmit();
   const { handleSubmit, formState } = addressForm;
 
   const formattedItemsCost = formatCurrency(itemsCost);
   const formattedTotalCost = formatCurrency(totalCost);
   const formattedDeliveryCost = formatCurrency(deliveryCost);
 
-  const isCartDisabled = !selectedProducts.length || !formState.isValid;
+  const isCartDisabled =
+    !selectedProducts.length || !formState.isValid || isLoading;
 
   const handlePaymentSelection = (type: PaymentOption) => () => {
     setPaymentType(type);
@@ -139,8 +140,10 @@ export const Checkout = () => {
               disabled={isCartDisabled}
               form={ADDRESS_FORM_ID}
               onClick={handleSubmit(handleConfirmationButtonClick)}
+              isLoading={isLoading}
             >
               CONFIRMAR PEDIDO
+              {isLoading ? <CircleNotch size={24} /> : null}
             </ConfirmationButton>
           </PriceSection>
         </CartContainer>

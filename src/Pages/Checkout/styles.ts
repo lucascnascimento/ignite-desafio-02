@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 export const CheckoutContainer = styled.div`
   display: flex;
@@ -83,7 +83,21 @@ export const PriceSection = styled.div`
     }
   }
 `;
-export const ConfirmationButton = styled.button`
+
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+type ConfirmationButtonProps = {
+  isLoading: boolean;
+};
+
+export const ConfirmationButton = styled.button<ConfirmationButtonProps>`
   width: 100%;
   background-color: ${(props) => props.theme.yellow};
   color: ${(props) => props.theme.white};
@@ -92,14 +106,23 @@ export const ConfirmationButton = styled.button`
   padding: var(--size-12);
   border-radius: var(--border-radius-6);
   text-align: center;
-  cursor: pointer;
+  cursor: ${(props) => (props.isLoading ? "not-allowed" : "pointer")};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--size-16);
 
   &:hover {
     background-color: ${(props) => props.theme["yellow-dark"]};
   }
 
   &:disabled {
-    background-color: ${(props) => props.theme["yellow-light"]};
+    background-color: ${(props) =>
+      props.isLoading ? props.theme.yellow : props.theme["yellow-light"]};
     cursor: not-allowed;
+  }
+
+  & svg {
+    animation: ${rotate} 2s linear infinite;
   }
 `;
