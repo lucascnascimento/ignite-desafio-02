@@ -76,7 +76,7 @@ export const Checkout = () => {
           title="Endereço de Entrega"
           subtitle="Informe o endereço onde deseja receber seu pedido"
           icon="mapPinLine"
-          iconColor="base-card"
+          iconColor="yellow-dark"
         >
           <FormProvider {...addressForm}>
             <AddressForm />
@@ -87,7 +87,7 @@ export const Checkout = () => {
           title="Pagamento"
           subtitle="O pagamento é feito na entrega. Escolha a forma que deseja pagar"
           icon="currencyDollar"
-          iconColor="base-card"
+          iconColor="purple"
         >
           <PaymentSectionContainer>
             <PaymentSelectButton
